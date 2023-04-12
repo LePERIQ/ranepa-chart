@@ -1,9 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { useAppDispatch, useAppSelector } from '../../store/redux/hooks';
 import { getChartData } from '../../store/redux/chartDataSlice/chartDataSlice';
 import { periodDataType } from '../../store/redux/chartDataSlice/chartDataType';
+import ButtonGroup from './ButtonGroup';
 
 function Chart(): JSX.Element {
   const chartData = useAppSelector(
@@ -15,11 +16,7 @@ function Chart(): JSX.Element {
     dispatch(getChartData());
   }, []);
 
-  const [dataChartState, setDataChartState] = useState<periodDataType>();
-
-  useEffect(()=> {
-      setDataChartState(chartData[2021]);
-  }, [])
+  const [keyName, setKeyName] = useState('2021');
 
   const options = {
     chart: {
@@ -57,46 +54,20 @@ function Chart(): JSX.Element {
     series: [
       {
         name: 'С учетом субсидии',
-        data: dataChartState?.vds_sub,
+        data: chartData[keyName].vds_sub,
       },
       {
         name: 'Без учета субсиди',
-        data: dataChartState?.vds_wsub,
+        data: chartData[keyName].vds_wsub,
       },
     ],
   };
 
-  console.log('render');
 
   return (
     chartData && (
       <div>
-        <div>
-          <button
-            type="button"
-            onClick={() => setDataChartState(chartData[2021])}
-          >
-            2021
-          </button>
-          <button
-            type="button"
-            onClick={() => setDataChartState(chartData[2022])}
-          >
-            2022
-          </button>
-          <button
-            type="button"
-            onClick={() => setDataChartState(chartData[2023])}
-          >
-            2023
-          </button>
-          <button
-            type="button"
-            onClick={() => setDataChartState(chartData[2024])}
-          >
-            2024
-          </button>
-        </div>
+        <ButtonGroup setKeyName={setKeyName} />
         <div style={{ width: '70vh', height: '20vh' }}>
           <HighchartsReact
             highcharts={Highcharts}
