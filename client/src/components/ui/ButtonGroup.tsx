@@ -4,7 +4,7 @@ type ButtonGroupPropsType = {
     setKeyName: (args: string) => void
 }
 
-export default function ButtonGroup({setKeyName}: ButtonGroupPropsType): JSX.Element {
+function ButtonGroup({setKeyName}: ButtonGroupPropsType): JSX.Element {
   return (
     <div>
     <button
@@ -34,3 +34,5 @@ export default function ButtonGroup({setKeyName}: ButtonGroupPropsType): JSX.Ele
   </div>
   )
 }
+
+export default React.memo(ButtonGroup);

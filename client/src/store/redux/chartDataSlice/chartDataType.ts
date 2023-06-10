@@ -3,10 +3,6 @@ export type ChartDataType = {
 };
 
 export type VolumeMarginalityRelation = {
-  // '2021': periodDataType;
-  // '2022': periodDataType;
-  // '2023': periodDataType;
-  // '2024': periodDataType;
   [key: string] : periodDataType
 };
 

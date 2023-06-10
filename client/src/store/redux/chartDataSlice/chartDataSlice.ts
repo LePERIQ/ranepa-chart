@@ -27,7 +27,7 @@ const initialState: ChartDataType = {
 };
 
 export const chartDataSlice = createSlice({
-  name: 'chartData',
+  name: 'chartStore',
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {

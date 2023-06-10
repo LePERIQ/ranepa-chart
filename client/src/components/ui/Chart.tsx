@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import { useAppDispatch, useAppSelector } from '../../store/redux/hooks';
+import { VolumeMarginalityRelation } from '../../store/redux/chartDataSlice/chartDataType';
+import { useAppDispatch } from '../../store/redux/hooks';
 import { getChartData } from '../../store/redux/chartDataSlice/chartDataSlice';
-import { periodDataType } from '../../store/redux/chartDataSlice/chartDataType';
-import ButtonGroup from './ButtonGroup';
 
-function Chart(): JSX.Element {
-  const chartData = useAppSelector(
-    (store) => store.chartData.volume_marginality_relation,
-  );
+
+type ChartPropsType = {
+  keyName: string
+  chartData: VolumeMarginalityRelation
+}
+
+function Chart({keyName, chartData}: ChartPropsType): JSX.Element {
   const dispatch = useAppDispatch();
-
   useEffect(() => {
     dispatch(getChartData());
   }, []);
-
-  const [keyName, setKeyName] = useState('2021');
-
+  
   const options = {
     chart: {
       type: 'line',
@@ -64,10 +63,10 @@ function Chart(): JSX.Element {
   };
 
 
+
   return (
     chartData && (
       <div>
-        <ButtonGroup setKeyName={setKeyName} />
         <div style={{ width: '70vh', height: '20vh' }}>
           <HighchartsReact
             highcharts={Highcharts}
@@ -77,7 +76,7 @@ function Chart(): JSX.Element {
           />
         </div>
       </div>
-    )
+    ) 
   );
 }
 

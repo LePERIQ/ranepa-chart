@@ -3,7 +3,7 @@ import chartDataReducer from './chartDataSlice/chartDataSlice';
 
 const store = configureStore({
     reducer: {
-        chartData: chartDataReducer
+        chartStore: chartDataReducer
     },
   })
 
